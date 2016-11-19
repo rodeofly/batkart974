@@ -37,13 +37,11 @@
       "Utiliser les notions de géométrie plane pour démontrer": "D1.3 : Utiliser et produire des représentations d'objets"
     },
     "Grandeurs et mesures": {
-      "Calculer avec des grandeurs mesurables ; Exprimer les résultats dans les unités adaptées": "Exprimer une grandeur mesurée ou calculée dans une unité adaptée",
-      "Comprendre l'effet de quelques transformations sur des grandeurs géométriques": {
-        "Agrandissement et réduction": ""
-      }
+      "Calculer avec des grandeurs mesurables ; Exprimer les résultats dans les unités adaptées": "D1.3 : Exprimer une grandeur mesurée ou calculée dans une unité adaptée",
+      "Comprendre l'effet de quelques transformations sur des grandeurs géométriques": ""
     },
     "Algorithmique et programmation": {
-      "Écrire, mettre au point et exécuter un programme simple": "Utiliser l’algorithmique et la programmation pour créer des applications simples"
+      "Écrire, mettre au point et exécuter un programme simple": "D1.3 : Utiliser l’algorithmique et la programmation pour créer des applications simples"
     }
   };
 
