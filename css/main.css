@@ -64,9 +64,8 @@ textarea {
 .carte {
   position : relative;
   display : inline-block;
-  padding : 1cm;
-  margin : 0.5cm;
-  border : solid black 1px;
+  padding : 0cm;
+  margin : 0cm;
 }
 
 .face {
