@@ -32,56 +32,8 @@ signifiants =
     "Comprendre l'effet de quelques transformations sur des grandeurs géométriques": ""
   "Algorithmique et programmation":
     "Écrire, mettre au point et exécuter un programme simple":  "D1.3 : Utiliser l’algorithmique et la programmation pour créer des applications simples"
+    
       
-  
-  
-  
-  
-  
-  
-  
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
- 
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 niveaux =
   "Nombres et Calculs" :
     "Utiliser les nombres pour comparer, calculer et résoudre des problèmes" :
@@ -266,8 +218,28 @@ niveaux =
         
         
         
-        
-        
+ICON_THEME =
+  "Nombres et Calculs": "NC"
+  "Organisation et gestion de données, fonctions": "OGD"
+  "Espace et géométrie": "EG"
+  "Grandeurs et mesures": "GM"
+  "Algorithmique et programmation": "AP"
+
+ICON_ATTENDU =
+  "Utiliser les nombres pour comparer, calculer et résoudre des problèmes" : "D1"
+  "Utiliser le calcul littéral": "D1"  
+  "Comprendre et utiliser les notions de divisibilité et de nombres premiers": "D1"
+  "Interpréter, représenter et traiter des données": "D3"
+  "Comprendre et utiliser des notions élémentaires de probabilités": "D1"
+  "Résoudre des problèmes de proportionnalité": "D2"
+  "Comprendre et utiliser la notion de fonction": "D4"
+  "Représenter l'espace": "D5"
+  "Utiliser les notions de géométrie plane pour démontrer": "D1"
+  "Calculer avec des grandeurs mesurables ; Exprimer les résultats dans les unités adaptées": "D1"
+  "Écrire, mettre au point et exécuter un programme simple": "D1"
+  "Comprendre l'effet de quelques transformations sur des grandeurs géométriques" : "D2"
+
+      
         
         
         
@@ -286,14 +258,35 @@ class CardSet
         numero_notion++  
         recto = $("<div class='face recto #{couleurs[@theme]}'></div>")
         recto.append "<div class='carteID'>#{id}</div>"
-        recto.append "<div class='theme'>#{@theme}</div>"
-        recto.append "<div class='citation'>#{citations[@theme]}</div>"
-        recto.append "<div class='signifiant'>Signifiant / #{signifiants[@theme][attendu]}</div>" if ( signifiants[@theme][attendu] isnt "" )
-        recto.append "<div class='attendu'><u>Attendu de fin de cycle</u><br><br>#{attendu}<br>(n° #{numero_attendu} / #{nombre_attendus})</div>"
-        recto.append "<div class='notion'>#{numero_notion}. #{notion}</div>"
+        recto.append "<div id='t#{id}' ' class='theme #{ICON_THEME[@theme]}'>#{@theme}<br><div class='citation'>#{citations[@theme]}</div></div>"
+        
+        recto.append 
+        
+        html="<div id='s#{id}'  class='attendu #{ICON_ATTENDU[attendu]}'>"
+        if signifiants[@theme][attendu] isnt ""
+          html += "<div class='signifiant'>#{signifiants[@theme][attendu]}</div>"
+        html +="<br>#{attendu}<form>"
+        for n in [1..nombre_attendus]
+          if n is numero_attendu
+            html += "<input type='radio' name='numero_attendu' value='#{n}' checked>#{n}"
+          else
+            html+= "<input type='radio' name='numero_attendu' value='#{n}' disabled>#{n}"
+        html += "</form><br>"
+        
+        html += "<div class='notion'>#{notion}</div>"
+        html +="<form>"
+        for n in [1..nombre_notions]
+          if n is numero_notion
+            html += "<input type='radio' name='numero_notion' value='#{n}' checked>#{n}"
+          else
+            html+= "<input type='radio' name='numero_notion' value='#{n}' disabled>#{n}"
+        html += "</form><br>"
+        html += "</div>"
+        recto.append html
+
       
         verso = $("<div class='face verso #{couleurs[@theme]}'></div>")     
-        verso.append "<div class='theme'>#{@theme}</div>"
+        verso.append "<div class='theme #{ICON_THEME[@theme]}'></div>"
         verso.append "<ul id='attendus'></ul>"
         
         a=0

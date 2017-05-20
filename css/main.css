@@ -97,14 +97,41 @@ textarea {
 }
 
 .theme {
+  height : 1.5cm;
   text-align : center;
   font-weight : bolder;
   font-size : 1em;
+  padding-left : 1.25cm;
 }
+
+
+.theme.NC {
+  background: url("./icones/nombres&calculs.svg") no-repeat;
+  background-size : 1.25cm;
+}
+.theme.OGD {
+  background: url("./icones/ogd&fonctions.svg") no-repeat;
+  background-size : 1.25cm;
+}
+.theme.EG {
+  background: url("./icones/espace&géométrie.svg") no-repeat;
+  background-size : 1.25cm;
+}
+.theme.AP {
+  background: url("./icones/algoritmique.svg") no-repeat;
+  background-size : 1.25cm;
+}
+.theme.GM {
+  background: url("./icones/grandeurs&mesures.svg") no-repeat;
+  background-size : 1.25cm;
+}
+
+
 
 recto .attendu {
   text-align : center;
   font-size : 0.75em;
+  
 }
 
 .carteID {
@@ -117,7 +144,7 @@ recto .attendu {
   font-weight : bolder;
   border : solid black 2px;
   border-radius : 100%;
-  bottom : 50px;
+  bottom : 0.5cm;
 
 }
 
@@ -160,26 +187,63 @@ recto .attendu {
   text-align : center;
   font-style: italic;
   font-size : 0.8em;
+  background : #ffffff;
+  border : solid black 3px;
+  border-radius : 0.25cm;
 }
 
 .signifiant {
-  color : red;
-  margin-top: 0.8em;
+  color : black;
   text-align : center;
-  font-style: italic;
-  font-size : 0.8em;
+  /*font-style: italic;*/
+  font-size : 1em;
+  margin-left: -2.5cm;
+  font-size : 1em;
+
+
+
+
+
 }
 
 
 .recto .attendu  {
   text-align : center;
   font-weight: bolder;
-  font-size : 0.8em;
+  font-size : 0.9em;
   border : solid black 0.05cm;
   border-radius : 0.1cm;
-  margin-top : 1cm;
-  padding : 0.5cm;
+  padding : 0.25cm;
+  padding-left : 3cm;
+
+  
+
 }
+
+.recto .attendu.D1{
+  background: url("./icones/domaine1.svg") no-repeat left center;
+  background-size : 3cm;
+}
+
+.recto .attendu.D2{
+  background: url("./icones/domaine2.svg") no-repeat left center;
+  background-size : 3cm;
+}
+.recto .attendu.D3{
+  background: url("./icones/domaine3.svg") no-repeat left center;
+  background-size : 3cm;
+}
+.recto .attendu.D4{
+  background: url("./icones/domaine4.svg") no-repeat left center;
+  background-size : 3cm;
+}
+
+.recto .attendu.D5{
+  background: url("./icones/domaine5.svg") no-repeat left center;
+  background-size : 3cm;
+}
+
+
 
 .recto .notion  {
   text-align : center;
