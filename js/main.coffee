@@ -283,23 +283,23 @@ class CardSet
       
         verso = $("<div class='face verso #{couleurs[@theme]}'></div>")
         html = "<div class='theme #{ICON_THEME[@theme]}'>"
-        if recto.find( "#s#{id}" ).hasClass("D1")
+        if recto.find( "#s#{id} .signifiant" ).hasClass("D1")
           html += "<div class='competence representer'></div>"
           html += "<div class='competence modeliser'></div>"
           html += "<div class='competence communiquer'></div>"
-        if recto.find( "#s#{id}" ).hasClass("D2")
+        if recto.find( "#s#{id} .signifiant" ).hasClass("D2")
           html += "<div class='competence chercher'></div>"
           html += "<div class='competence modeliser'></div>"
           html += "<div class='competence raisonner'></div>"
-        if recto.find( "#s#{id}" ).hasClass("D3")
+        if recto.find( "#s#{id} .signifiant" ).hasClass("D3")
           html += "<div class='competence raisonner'></div>"
           html += "<div class='competence communiquer'></div>" 
-        if recto.find( "#s#{id}" ).hasClass("D4")
+        if recto.find( "#s#{id} .signifiant" ).hasClass("D4")
           html += "<div class='competence chercher'></div>" 
           html += "<div class='competence modeliser'></div>"
           html += "<div class='competence raisonner'></div>" 
           html += "<div class='competence calculer'></div>" 
-        if recto.find( "#s#{id}" ).hasClass("D5")
+        if recto.find( "#s#{id} .signifiant" ).hasClass("D5")
           html += "<div class='competence representer'></div>" 
         html += "</div>"
         verso.append html
@@ -347,6 +347,10 @@ $ ->
     $( this ).find(".recto").toggle()
     $( this ).find(".verso").toggle()
   $(".deck").sortable()
+  
+  $( "#toggle" ).on "click", ->
+    $( ".recto" ).toggle()
+    $( ".verso" ).toggle()
     
 
 

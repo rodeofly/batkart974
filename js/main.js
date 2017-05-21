@@ -332,27 +332,27 @@
           recto.append(html);
           verso = $("<div class='face verso " + couleurs[this.theme] + "'></div>");
           html = "<div class='theme " + ICON_THEME[this.theme] + "'>";
-          if (recto.find("#s" + id).hasClass("D1")) {
+          if (recto.find("#s" + id + " .signifiant").hasClass("D1")) {
             html += "<div class='competence representer'></div>";
             html += "<div class='competence modeliser'></div>";
             html += "<div class='competence communiquer'></div>";
           }
-          if (recto.find("#s" + id).hasClass("D2")) {
+          if (recto.find("#s" + id + " .signifiant").hasClass("D2")) {
             html += "<div class='competence chercher'></div>";
             html += "<div class='competence modeliser'></div>";
             html += "<div class='competence raisonner'></div>";
           }
-          if (recto.find("#s" + id).hasClass("D3")) {
+          if (recto.find("#s" + id + " .signifiant").hasClass("D3")) {
             html += "<div class='competence raisonner'></div>";
             html += "<div class='competence communiquer'></div>";
           }
-          if (recto.find("#s" + id).hasClass("D4")) {
+          if (recto.find("#s" + id + " .signifiant").hasClass("D4")) {
             html += "<div class='competence chercher'></div>";
             html += "<div class='competence modeliser'></div>";
             html += "<div class='competence raisonner'></div>";
             html += "<div class='competence calculer'></div>";
           }
-          if (recto.find("#s" + id).hasClass("D5")) {
+          if (recto.find("#s" + id + " .signifiant").hasClass("D5")) {
             html += "<div class='competence representer'></div>";
           }
           html += "</div>";
@@ -412,7 +412,11 @@
       $(this).find(".recto").toggle();
       return $(this).find(".verso").toggle();
     });
-    return $(".deck").sortable();
+    $(".deck").sortable();
+    return $("#toggle").on("click", function() {
+      $(".recto").toggle();
+      return $(".verso").toggle();
+    });
   });
 
 }).call(this);
