@@ -1,11 +1,11 @@
 
 unique_id=1
 couleurs = 
-  "Nombres et Calculs": "bleuNC"
-  "Organisation et gestion de données, fonctions": "MauveOGD"
-  "Espace et géométrie": "jauneEG"
-  "Grandeurs et mesures": "vertGM"
-  "Algorithmique et programmation": "orangeAP"
+  "Nombres et Calculs": "themeNC"
+  "Organisation et gestion de données, fonctions": "themeOGD"
+  "Espace et géométrie": "themeEG"
+  "Grandeurs et mesures": "themeGM"
+  "Algorithmique et programmation": "themeAP"
   
 citations =
   "Nombres et Calculs": "Chinoi la la pa bien rende a moin la monai"
@@ -20,16 +20,16 @@ signifiants =
     "Utiliser le calcul littéral": "D1.3 : Utiliser le calcul littéral"  
     "Comprendre et utiliser les notions de divisibilité et de nombres premiers": "D1.3 : Utiliser les nombres"
   "Organisation et gestion de données, fonctions":
-    "Interpréter, représenter et traiter des données": ""
+    "Interpréter, représenter et traiter des données": "D3 : la formation de la personne et du citoyen"
     "Comprendre et utiliser des notions élémentaires de probabilités": "D1.3 : Utiliser le langage des probabilités"
-    "Résoudre des problèmes de proportionnalité": ""
-    "Comprendre et utiliser la notion de fonction": ""
+    "Résoudre des problèmes de proportionnalité": "D2 : les méthodes et outils pour apprendre"
+    "Comprendre et utiliser la notion de fonction": "D4 : les systèmes naturels et les systèmes techniques"
   "Espace et géométrie":
     "Représenter l'espace": "D5 : Situer et se situer dans le temps et l’espace"
     "Utiliser les notions de géométrie plane pour démontrer": "D1.3 : Utiliser et produire des représentations d'objets"
   "Grandeurs et mesures":
     "Calculer avec des grandeurs mesurables ; Exprimer les résultats dans les unités adaptées": "D1.3 : Exprimer une grandeur mesurée ou calculée dans une unité adaptée"
-    "Comprendre l'effet de quelques transformations sur des grandeurs géométriques": ""
+    "Comprendre l'effet de quelques transformations sur des grandeurs géométriques": "D2 : les méthodes et outils pour apprendre"
   "Algorithmique et programmation":
     "Écrire, mettre au point et exécuter un programme simple":  "D1.3 : Utiliser l’algorithmique et la programmation pour créer des applications simples"
     
@@ -258,35 +258,51 @@ class CardSet
         numero_notion++  
         recto = $("<div class='face recto #{couleurs[@theme]}'></div>")
         recto.append "<div class='carteID'>#{id}</div>"
-        recto.append "<div id='t#{id}' ' class='theme #{ICON_THEME[@theme]}'>#{@theme}<br><div class='citation'>#{citations[@theme]}</div></div>"
+        recto.append "<div id='t#{id}' ' class='theme #{ICON_THEME[@theme]}'>#{@theme}</div>"
         
-        recto.append 
+        recto.append "<div class='citation'>#{citations[@theme]}</div>"
         
-        html="<div id='s#{id}'  class='attendu #{ICON_ATTENDU[attendu]}'>"
-        if signifiants[@theme][attendu] isnt ""
-          html += "<div class='signifiant'>#{signifiants[@theme][attendu]}</div>"
-        html +="<br>#{attendu}<form>"
+        html  = "<div id='s#{id}'  class='attendu #{ICON_THEME[@theme]}'>"
+        html += "<div class='signifiant #{ICON_ATTENDU[attendu]}'>#{signifiants[@theme][attendu]}</div>"
+        html +="<span class='intitule_attendu'>#{attendu}</span><br>"
         for n in [1..nombre_attendus]
           if n is numero_attendu
-            html += "<input type='radio' name='numero_attendu' value='#{n}' checked>#{n}"
+            html += "<img src='./css/icones/checkbox_checked_target.png'>#{n}"
           else
-            html+= "<input type='radio' name='numero_attendu' value='#{n}' disabled>#{n}"
-        html += "</form><br>"
+            html+= "<img src='./css/icones/checkbox_unchecked_target.png'>#{n}"
         
         html += "<div class='notion'>#{notion}</div>"
-        html +="<form>"
         for n in [1..nombre_notions]
           if n is numero_notion
-            html += "<input type='radio' name='numero_notion' value='#{n}' checked>#{n}"
+            html += "<img class='notion_bg' src='./css/icones/checkbox_checked.png'>#{n}"
           else
-            html+= "<input type='radio' name='numero_notion' value='#{n}' disabled>#{n}"
-        html += "</form><br>"
+            html+= "<img class='notion_bg' src='./css/icones/checkbox_unchecked.png'>#{n}"
         html += "</div>"
         recto.append html
 
       
-        verso = $("<div class='face verso #{couleurs[@theme]}'></div>")     
-        verso.append "<div class='theme #{ICON_THEME[@theme]}'></div>"
+        verso = $("<div class='face verso #{couleurs[@theme]}'></div>")
+        html = "<div class='theme #{ICON_THEME[@theme]}'>"
+        if recto.find( "#s#{id}" ).hasClass("D1")
+          html += "<div class='competence representer'></div>"
+          html += "<div class='competence modeliser'></div>"
+          html += "<div class='competence communiquer'></div>"
+        if recto.find( "#s#{id}" ).hasClass("D2")
+          html += "<div class='competence chercher'></div>"
+          html += "<div class='competence modeliser'></div>"
+          html += "<div class='competence raisonner'></div>"
+        if recto.find( "#s#{id}" ).hasClass("D3")
+          html += "<div class='competence raisonner'></div>"
+          html += "<div class='competence communiquer'></div>" 
+        if recto.find( "#s#{id}" ).hasClass("D4")
+          html += "<div class='competence chercher'></div>" 
+          html += "<div class='competence modeliser'></div>"
+          html += "<div class='competence raisonner'></div>" 
+          html += "<div class='competence calculer'></div>" 
+        if recto.find( "#s#{id}" ).hasClass("D5")
+          html += "<div class='competence representer'></div>" 
+        html += "</div>"
+        verso.append html
         verso.append "<ul id='attendus'></ul>"
         
         a=0
@@ -294,7 +310,7 @@ class CardSet
           a++
           if a is numero_attendu
             verso.find( "#attendus" ).append """
-            <li class='attendu'>#{attenduV}
+            <li class='attendu'><div class='target'></div>#{attenduV}
               <ol id='notions'></ol>
             </li>
             """
@@ -309,7 +325,7 @@ class CardSet
                 for savoirfaire, niveau of savoirfairesV
                   verso.find("#savoirfaires").append "<li>#{savoirfaire}: <img class='star' src='img/#{niveau}star.png'></li>"
               else verso.find("#notions").append( "<li class='notion'>#{notionV}</li>" )
-          else verso.find( "#attendus" ).append "<li class='attendu'>#{attenduV}</li>"
+          else verso.find( "#attendus" ).append "<li class='attendu'><div class='target'></div>#{attenduV}</li>"
         
         carte = $("<div></div>")
         carte.append "<div id='#{}' class='carte'></div>"
@@ -324,4 +340,31 @@ $ ->
   for theme,attendus of niveaux
     set = new CardSet theme, attendus
     for s in set.set
-      $( "body" ).append s
+      $( ".deck" ).append s
+  
+  $( ".verso" ).hide()
+  $( ".carte" ).on "click", ->
+    $( this ).find(".recto").toggle()
+    $( this ).find(".verso").toggle()
+  $(".deck").sortable()
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

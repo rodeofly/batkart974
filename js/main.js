@@ -5,11 +5,11 @@
   unique_id = 1;
 
   couleurs = {
-    "Nombres et Calculs": "bleuNC",
-    "Organisation et gestion de données, fonctions": "MauveOGD",
-    "Espace et géométrie": "jauneEG",
-    "Grandeurs et mesures": "vertGM",
-    "Algorithmique et programmation": "orangeAP"
+    "Nombres et Calculs": "themeNC",
+    "Organisation et gestion de données, fonctions": "themeOGD",
+    "Espace et géométrie": "themeEG",
+    "Grandeurs et mesures": "themeGM",
+    "Algorithmique et programmation": "themeAP"
   };
 
   citations = {
@@ -27,10 +27,10 @@
       "Comprendre et utiliser les notions de divisibilité et de nombres premiers": "D1.3 : Utiliser les nombres"
     },
     "Organisation et gestion de données, fonctions": {
-      "Interpréter, représenter et traiter des données": "",
+      "Interpréter, représenter et traiter des données": "D3 : la formation de la personne et du citoyen",
       "Comprendre et utiliser des notions élémentaires de probabilités": "D1.3 : Utiliser le langage des probabilités",
-      "Résoudre des problèmes de proportionnalité": "",
-      "Comprendre et utiliser la notion de fonction": ""
+      "Résoudre des problèmes de proportionnalité": "D2 : les méthodes et outils pour apprendre",
+      "Comprendre et utiliser la notion de fonction": "D4 : les systèmes naturels et les systèmes techniques"
     },
     "Espace et géométrie": {
       "Représenter l'espace": "D5 : Situer et se situer dans le temps et l’espace",
@@ -38,7 +38,7 @@
     },
     "Grandeurs et mesures": {
       "Calculer avec des grandeurs mesurables ; Exprimer les résultats dans les unités adaptées": "D1.3 : Exprimer une grandeur mesurée ou calculée dans une unité adaptée",
-      "Comprendre l'effet de quelques transformations sur des grandeurs géométriques": ""
+      "Comprendre l'effet de quelques transformations sur des grandeurs géométriques": "D2 : les méthodes et outils pour apprendre"
     },
     "Algorithmique et programmation": {
       "Écrire, mettre au point et exécuter un programme simple": "D1.3 : Utiliser l’algorithmique et la programmation pour créer des applications simples"
@@ -308,35 +308,55 @@
           numero_notion++;
           recto = $("<div class='face recto " + couleurs[this.theme] + "'></div>");
           recto.append("<div class='carteID'>" + id + "</div>");
-          recto.append("<div id='t" + id + "' ' class='theme " + ICON_THEME[this.theme] + "'>" + this.theme + "<br><div class='citation'>" + citations[this.theme] + "</div></div>");
-          recto.append;
-          html = "<div id='s" + id + "'  class='attendu " + ICON_ATTENDU[attendu] + "'>";
-          if (signifiants[this.theme][attendu] !== "") {
-            html += "<div class='signifiant'>" + signifiants[this.theme][attendu] + "</div>";
-          }
-          html += "<br>" + attendu + "<form>";
+          recto.append("<div id='t" + id + "' ' class='theme " + ICON_THEME[this.theme] + "'>" + this.theme + "</div>");
+          recto.append("<div class='citation'>" + citations[this.theme] + "</div>");
+          html = "<div id='s" + id + "'  class='attendu " + ICON_THEME[this.theme] + "'>";
+          html += "<div class='signifiant " + ICON_ATTENDU[attendu] + "'>" + signifiants[this.theme][attendu] + "</div>";
+          html += "<span class='intitule_attendu'>" + attendu + "</span><br>";
           for (n = i = 1, ref1 = nombre_attendus; 1 <= ref1 ? i <= ref1 : i >= ref1; n = 1 <= ref1 ? ++i : --i) {
             if (n === numero_attendu) {
-              html += "<input type='radio' name='numero_attendu' value='" + n + "' checked>" + n;
+              html += "<img src='./css/icones/checkbox_checked_target.png'>" + n;
             } else {
-              html += "<input type='radio' name='numero_attendu' value='" + n + "' disabled>" + n;
+              html += "<img src='./css/icones/checkbox_unchecked_target.png'>" + n;
             }
           }
-          html += "</form><br>";
           html += "<div class='notion'>" + notion + "</div>";
-          html += "<form>";
           for (n = j = 1, ref2 = nombre_notions; 1 <= ref2 ? j <= ref2 : j >= ref2; n = 1 <= ref2 ? ++j : --j) {
             if (n === numero_notion) {
-              html += "<input type='radio' name='numero_notion' value='" + n + "' checked>" + n;
+              html += "<img class='notion_bg' src='./css/icones/checkbox_checked.png'>" + n;
             } else {
-              html += "<input type='radio' name='numero_notion' value='" + n + "' disabled>" + n;
+              html += "<img class='notion_bg' src='./css/icones/checkbox_unchecked.png'>" + n;
             }
           }
-          html += "</form><br>";
           html += "</div>";
           recto.append(html);
           verso = $("<div class='face verso " + couleurs[this.theme] + "'></div>");
-          verso.append("<div class='theme " + ICON_THEME[this.theme] + "'></div>");
+          html = "<div class='theme " + ICON_THEME[this.theme] + "'>";
+          if (recto.find("#s" + id).hasClass("D1")) {
+            html += "<div class='competence representer'></div>";
+            html += "<div class='competence modeliser'></div>";
+            html += "<div class='competence communiquer'></div>";
+          }
+          if (recto.find("#s" + id).hasClass("D2")) {
+            html += "<div class='competence chercher'></div>";
+            html += "<div class='competence modeliser'></div>";
+            html += "<div class='competence raisonner'></div>";
+          }
+          if (recto.find("#s" + id).hasClass("D3")) {
+            html += "<div class='competence raisonner'></div>";
+            html += "<div class='competence communiquer'></div>";
+          }
+          if (recto.find("#s" + id).hasClass("D4")) {
+            html += "<div class='competence chercher'></div>";
+            html += "<div class='competence modeliser'></div>";
+            html += "<div class='competence raisonner'></div>";
+            html += "<div class='competence calculer'></div>";
+          }
+          if (recto.find("#s" + id).hasClass("D5")) {
+            html += "<div class='competence representer'></div>";
+          }
+          html += "</div>";
+          verso.append(html);
           verso.append("<ul id='attendus'></ul>");
           a = 0;
           ref3 = this.attendus;
@@ -344,7 +364,7 @@
             notionsV = ref3[attenduV];
             a++;
             if (a === numero_attendu) {
-              verso.find("#attendus").append("<li class='attendu'>" + attenduV + "\n  <ol id='notions'></ol>\n</li>");
+              verso.find("#attendus").append("<li class='attendu'><div class='target'></div>" + attenduV + "\n  <ol id='notions'></ol>\n</li>");
               n = 0;
               for (notionV in notionsV) {
                 savoirfairesV = notionsV[notionV];
@@ -360,7 +380,7 @@
                 }
               }
             } else {
-              verso.find("#attendus").append("<li class='attendu'>" + attenduV + "</li>");
+              verso.find("#attendus").append("<li class='attendu'><div class='target'></div>" + attenduV + "</li>");
             }
           }
           carte = $("<div></div>");
@@ -376,24 +396,23 @@
   })();
 
   $(function() {
-    var attendus, results, s, set, theme;
+    var attendus, i, len, ref, s, set, theme;
     alert("go");
-    results = [];
     for (theme in niveaux) {
       attendus = niveaux[theme];
       set = new CardSet(theme, attendus);
-      results.push((function() {
-        var i, len, ref, results1;
-        ref = set.set;
-        results1 = [];
-        for (i = 0, len = ref.length; i < len; i++) {
-          s = ref[i];
-          results1.push($("body").append(s));
-        }
-        return results1;
-      })());
+      ref = set.set;
+      for (i = 0, len = ref.length; i < len; i++) {
+        s = ref[i];
+        $(".deck").append(s);
+      }
     }
-    return results;
+    $(".verso").hide();
+    $(".carte").on("click", function() {
+      $(this).find(".recto").toggle();
+      return $(this).find(".verso").toggle();
+    });
+    return $(".deck").sortable();
   });
 
 }).call(this);
