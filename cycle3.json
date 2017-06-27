@@ -109,15 +109,23 @@
                }
             }
          },
-         "Résoudre des problèmes géométriques,physiques,économiques":{
+         "Résoudre des problèmes géométriques, physiques, économiques": {
             "domaine":"D5",
-            "notions":{
-               "Résoudre des problèmes de comparaison(sans formule)":2,
-               "Résoudre des problèmes de comparaison (avec formule)":3,
-               "Calculer une durée":2,
-               "Déterminer un instant(initial ou final)":3
+            "notions": {
+               "Résoudre des problèmes" : {
+                  "Problème de comparaison(sans formule)" : 2,
+                  "Problème des problèmes de comparaison (avec formule)" : 3
+               },
+               "Calculer une durée" : {
+                  "descripteur 1" : 2
+               },
+               "Déterminer un instant(initial ou final)": {
+                  "descripteur 2" : 2
+               }
             }
          }
       }
    }
 }
+
+
