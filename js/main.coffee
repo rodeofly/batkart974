@@ -190,8 +190,11 @@ class CardSet
         id = ID++
         numero_notion++
         html = """
-        <div class='face recto #{THEMES[@theme]['classe']}'>          
-          <div id='t#{id}' class='header #{THEMES[@theme]['classe']}'>#{@theme}</div>
+        <div class='face recto #{THEMES[@theme]['classe']}'> 
+          <div class='header #{THEMES[@theme]['classe']}'>
+              <div class='header logo #{THEMES[@theme]['classe']}'></div>
+              <div id='t#{id}' class='header title #{THEMES[@theme]['classe']}'>#{@theme}</div>
+          </div>
           <div id='s#{id}'  class='content #{THEMES[@theme]['classe']}'>
           <div class='attendu #{THEMES[@theme]['attendus'][attendu]['domaine']}'>
             #{attendu}
@@ -218,6 +221,9 @@ class CardSet
       
         verso = $("<div class='face verso #{THEMES[@theme]['classe']}'></div>")
         html = "<div class='header #{THEMES[@theme]['classe']}'>"
+        html = """<div class='header #{THEMES[@theme]['classe']}'>
+              <div class='header logo #{THEMES[@theme]['classe']}'></div>
+              <div id='t#{id}' class='header competences #{THEMES[@theme]['classe']}'>"""
         if recto.find( "#s#{id} .attendu" ).hasClass("D1")
           html += "<div class='competence representer'></div>"
           html += "<div class='competence modeliser'></div>"
@@ -236,7 +242,7 @@ class CardSet
           html += "<div class='competence calculer'></div>" 
         if recto.find( "#s#{id} .attendu" ).hasClass("D5")
           html += "<div class='competence representer'></div>" 
-        html += "</div>"
+        html += "</div></div>"
         verso.append html
         verso.append "<ul id='attendus'></ul>"
         
@@ -270,8 +276,8 @@ class CardSet
           .append(recto)
           .append(verso)
         @set.push carte.html()
-      
-  
+ 
+
 $ ->
   batkart = (file) ->
     $.getJSON file, ( data ) -> 
@@ -287,6 +293,20 @@ $ ->
       $( ".verso" ).hide()
       $( ".carte"  ).on "click", -> $( this ).find(".recto, .verso").toggle()
   
-  $( "#toggle" ).on "click", -> $( ".recto, .verso" ).toggle()
-  $( "#cycle3" ).on "click", -> batkart "cycle3.json"
-  $( "#cycle4" ).on "click", -> batkart "cycle4.json"
+  $( "#toggle" ).on "click", ->
+    ID = 1
+    $( ".recto, .verso" ).toggle()
+  $( "#cycle3" ).on "click", -> 
+    ID = 1
+    batkart "cycle3.json"
+  $( "#cycle4" ).on "click", -> 
+    ID = 1
+    batkart "cycle4.json"
+    
+    
+    
+    
+    
+    
+    
+    
