@@ -171,7 +171,7 @@ THEMES =
   
 
 
-console.log JSON.stringify THEMES
+#console.log JSON.stringify THEMES
 ID=1    
 class CardSet
   constructor: (@theme) ->
@@ -180,7 +180,7 @@ class CardSet
     
     numero_attendu = 0
     nombre_attendus = Object.keys(@attendus).length
-    console.log "theme:#{@theme} - na:#{nombre_attendus}"
+    #console.log "theme:#{@theme} - na:#{nombre_attendus}"
     for attendu of @attendus
       numero_attendu++
       numero_notion = 0
@@ -190,7 +190,7 @@ class CardSet
         id = ID++
         numero_notion++
         html = """
-        <div class='face recto #{THEMES[@theme]['classe']}'> 
+        <div class='face recto #{THEMES[@theme]['classe']}' data-id="#{id}r"> 
           <div class='header #{THEMES[@theme]['classe']}'>
               <div class='header logo #{THEMES[@theme]['classe']}'></div>
               <div id='t#{id}' class='header title #{THEMES[@theme]['classe']}'>#{@theme}</div>
@@ -219,7 +219,7 @@ class CardSet
         recto.find("#s#{id}").append html
 
       
-        verso = $("<div class='face verso #{THEMES[@theme]['classe']}'></div>")
+        verso = $("<div class='face verso #{THEMES[@theme]['classe']}' data-id='#{id}v'></div>")
         html = "<div class='header #{THEMES[@theme]['classe']}'>"
         html = """<div class='header #{THEMES[@theme]['classe']}'>
               <div class='header logo #{THEMES[@theme]['classe']}'></div>
@@ -250,10 +250,10 @@ class CardSet
         for attenduV, notionsV of THEMES[@theme]['attendus']
           a++
           if a is numero_attendu
-            console.log attenduV
+            #console.log attenduV
             verso.find( "#attendus" ).append """
             <li class='attendu content #{THEMES[@theme]['classe']}'>
-              <div class='target'>#{attenduV}</div>
+              <img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>#{attenduV}</div>
               <ol id='notions'></ol>
             </li>
             """
@@ -268,7 +268,7 @@ class CardSet
                 for savoirfaire, niveau of savoirfairesV
                   verso.find("#savoirfaires").append "<li>#{savoirfaire}: <img class='star' src='img/#{niveau}star.png'></li>"
               else verso.find("#notions").append( "<li class='notion'>#{notionV}</li>" )
-          else verso.find( "#attendus" ).append "<li class='attendu'><div class='target'>#{attenduV}</div></li>"
+          else verso.find( "#attendus" ).append "<li class='attendu'><img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>#{attenduV}</div></li>"
         
         carte = $("<div></div>")
         carte.append "<div id='#{}' class='carte'></div>"
@@ -276,7 +276,7 @@ class CardSet
           .append(recto)
           .append(verso)
         @set.push carte.html()
- 
+
 
 $ ->
   batkart = (file) ->
@@ -290,7 +290,7 @@ $ ->
           $( ".deck" ).append s
       
       $(".deck").sortable()
-      $( ".verso" ).hide()
+      #$( ".verso" ).hide()
       $( ".carte"  ).on "click", -> $( this ).find(".recto, .verso").toggle()
   
   $( "#toggle" ).on "click", ->
@@ -302,7 +302,35 @@ $ ->
   $( "#cycle4" ).on "click", -> 
     ID = 1
     batkart "cycle4.json"
-    
+  
+  
+  generateCanvas = (carte, id, zip, deferred) ->
+    html2canvas( carte ).then (canvas) -> 
+      imgUrl = canvas.toDataURL()
+      zip.file("carte-#{id}.png", imgUrl.split('base64,')[1],{base64: true})
+      deferred.resolve();
+      console.log "Carte #{id} traité !"
+  
+  zip = new JSZip()
+  $( "#toPNG" ).on "click", -> 
+    deferreds = [];
+    $(".face").each ->
+      id = $(this).attr("data-id")
+      console.log "Envoi de la carte #{id}"
+      deferred = $.Deferred()
+      deferreds.push(deferred.promise())
+      generateCanvas($(this)[0], id, zip, deferred)
+      
+    $.when.apply($, deferreds).then () ->
+      zip.generateAsync({ type: "blob" }).then (content) ->
+        link = document.createElement('a')
+        blobLink = window.URL.createObjectURL(content)
+        link.addEventListener 'click', (ev) ->
+          link.href = blobLink;
+          link.download = 'cartes.zip'
+        , false
+        link.click()
+  
     
     
     

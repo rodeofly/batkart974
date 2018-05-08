@@ -210,8 +210,8 @@
     }
   });
 
-  console.log(JSON.stringify(THEMES));
-
+  
+  //console.log JSON.stringify THEMES
   ID = 1;
 
   CardSet = class CardSet {
@@ -222,7 +222,7 @@
       this.set = [];
       numero_attendu = 0;
       nombre_attendus = Object.keys(this.attendus).length;
-      console.log(`theme:${this.theme} - na:${nombre_attendus}`);
+//console.log "theme:#{@theme} - na:#{nombre_attendus}"
       for (attendu in this.attendus) {
         numero_attendu++;
         numero_notion = 0;
@@ -232,7 +232,7 @@
           savoirfaires = ref[notion];
           id = ID++;
           numero_notion++;
-          html = `<div class='face recto ${THEMES[this.theme]['classe']}'> \n  <div class='header ${THEMES[this.theme]['classe']}'>\n      <div class='header logo ${THEMES[this.theme]['classe']}'></div>\n      <div id='t${id}' class='header title ${THEMES[this.theme]['classe']}'>${this.theme}</div>\n  </div>\n  <div id='s${id}'  class='content ${THEMES[this.theme]['classe']}'>\n  <div class='attendu ${THEMES[this.theme]['attendus'][attendu]['domaine']}'>\n    ${attendu}\n  </div>\n  <div class='carteID'>${id}</div> \n  <div class='citation'>${THEMES[this.theme]['citation']}</div>\n</div>`;
+          html = `<div class='face recto ${THEMES[this.theme]['classe']}' data-id="${id}r"> \n  <div class='header ${THEMES[this.theme]['classe']}'>\n      <div class='header logo ${THEMES[this.theme]['classe']}'></div>\n      <div id='t${id}' class='header title ${THEMES[this.theme]['classe']}'>${this.theme}</div>\n  </div>\n  <div id='s${id}'  class='content ${THEMES[this.theme]['classe']}'>\n  <div class='attendu ${THEMES[this.theme]['attendus'][attendu]['domaine']}'>\n    ${attendu}\n  </div>\n  <div class='carteID'>${id}</div> \n  <div class='citation'>${THEMES[this.theme]['citation']}</div>\n</div>`;
           recto = $(html);
           html = "";
           for (n = i = 1, ref1 = nombre_attendus; (1 <= ref1 ? i <= ref1 : i >= ref1); n = 1 <= ref1 ? ++i : --i) {
@@ -251,7 +251,7 @@
             }
           }
           recto.find(`#s${id}`).append(html);
-          verso = $(`<div class='face verso ${THEMES[this.theme]['classe']}'></div>`);
+          verso = $(`<div class='face verso ${THEMES[this.theme]['classe']}' data-id='${id}v'></div>`);
           html = `<div class='header ${THEMES[this.theme]['classe']}'>`;
           html = `<div class='header ${THEMES[this.theme]['classe']}'>\n<div class='header logo ${THEMES[this.theme]['classe']}'></div>\n<div id='t${id}' class='header competences ${THEMES[this.theme]['classe']}'>`;
           if (recto.find(`#s${id} .attendu`).hasClass("D1")) {
@@ -286,8 +286,8 @@
             notionsV = ref3[attenduV];
             a++;
             if (a === numero_attendu) {
-              console.log(attenduV);
-              verso.find("#attendus").append(`<li class='attendu content ${THEMES[this.theme]['classe']}'>\n  <div class='target'>${attenduV}</div>\n  <ol id='notions'></ol>\n</li>`);
+              //console.log attenduV
+              verso.find("#attendus").append(`<li class='attendu content ${THEMES[this.theme]['classe']}'>\n  <img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>${attenduV}</div>\n  <ol id='notions'></ol>\n</li>`);
               n = 0;
               ref4 = notionsV.notions;
               for (notionV in ref4) {
@@ -304,7 +304,7 @@
                 }
               }
             } else {
-              verso.find("#attendus").append(`<li class='attendu'><div class='target'>${attenduV}</div></li>`);
+              verso.find("#attendus").append(`<li class='attendu'><img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>${attenduV}</div></li>`);
             }
           }
           carte = $("<div></div>");
@@ -318,7 +318,7 @@
   };
 
   $(function() {
-    var batkart;
+    var batkart, generateCanvas, zip;
     batkart = function(file) {
       return $.getJSON(file, function(data) {
         var i, j, len, len1, ref, s, set, theme, themes;
@@ -335,7 +335,7 @@
           }
         }
         $(".deck").sortable();
-        $(".verso").hide();
+        //$( ".verso" ).hide()
         return $(".carte").on("click", function() {
           return $(this).find(".recto, .verso").toggle();
         });
@@ -349,9 +349,47 @@
       ID = 1;
       return batkart("cycle3.json");
     });
-    return $("#cycle4").on("click", function() {
+    $("#cycle4").on("click", function() {
       ID = 1;
       return batkart("cycle4.json");
+    });
+    generateCanvas = function(carte, id, zip, deferred) {
+      return html2canvas(carte).then(function(canvas) {
+        var imgUrl;
+        imgUrl = canvas.toDataURL();
+        zip.file(`carte-${id}.png`, imgUrl.split('base64,')[1], {
+          base64: true
+        });
+        deferred.resolve();
+        return console.log(`Carte ${id} traité !`);
+      });
+    };
+    zip = new JSZip();
+    return $("#toPNG").on("click", function() {
+      var deferreds;
+      deferreds = [];
+      $(".face").each(function() {
+        var deferred, id;
+        id = $(this).attr("data-id");
+        console.log(`Envoi de la carte ${id}`);
+        deferred = $.Deferred();
+        deferreds.push(deferred.promise());
+        return generateCanvas($(this)[0], id, zip, deferred);
+      });
+      return $.when.apply($, deferreds).then(function() {
+        return zip.generateAsync({
+          type: "blob"
+        }).then(function(content) {
+          var blobLink, link;
+          link = document.createElement('a');
+          blobLink = window.URL.createObjectURL(content);
+          link.addEventListener('click', function(ev) {
+            link.href = blobLink;
+            return link.download = 'cartes.zip';
+          }, false);
+          return link.click();
+        });
+      });
     });
   });
 

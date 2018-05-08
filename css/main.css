@@ -31,7 +31,6 @@ iframe,
 img,
 svg,
 video {
-    vertical-align: middle;
 }
 
 fieldset {
@@ -206,7 +205,6 @@ img.img_chkbox {
   font-size : 0.6em;
   list-style-position: inside;
   list-style-type:none;
-  text-align : left;
   background-color: rgba(255,255,255,0.75);
   border:  solid black 2px;
   border-radius: 25px;
@@ -214,7 +212,6 @@ img.img_chkbox {
 
 #attendus > li {
   margin-top : 0.1cm;
-
 }
 
 
@@ -278,6 +275,11 @@ div.attendu  {
   padding-left: 2cm;
 }
 
+.attendu > img {
+  width: 0.75cm;
+  display : inline-block;
+}
+
 .attendu.D1 {
   background: transparent url("./icones/domaine1.svg") no-repeat left top;
   background-size : 2cm;
@@ -320,21 +322,22 @@ span.intitule_attendu {
   font-size: 2em;
 }
 .attendu > .target
-{:font-size : 1.25em;background: url("./icones/target.svg") no-repeat left top;background-size : 0.5cm;}
+{:font-size : 1.25embackground-image: url("./icones/target.svg") no-repeat left top;}
 
 
 .target {
+  text-align:  left;
   display : inline-block;
-  vertical-align: middle;
-  min-height : 0.5cm;
-  line-height : 0.5cm
-  padding : 0;
+  min-height: 0.75cm;
+  padding: 0;
   margin : 0;
   margin-bottom : 0.25cm;
-  padding-left : 0.6cm;
-  background: url("./icones/target.svg") no-repeat left top;
-  background-size : 0.5cm;
+  padding-left: 0cm;
   border : 0;
+  line-height: 1em;
+  width: 6cm;
+  font-size: 1.5em;
+  vertical-align: middle;
 }
 
 .competence {
