@@ -236,6 +236,7 @@
           id = ID++;
           numero_notion++;
           domainClass = THEMES[this.theme]['attendus'][attendu]['domaine'];
+          $carte.find(".bleeding.recto").attr("data-id", `${id}r`);
           $recto.attr("data-id", `${id}r`);
           $recto.attr("data-theme", THEMES[this.theme]['classe']);
           $recto.find(".carteID").html(id);
@@ -264,11 +265,12 @@
             }
           }
           $recto.find(".notions-targets").html(html);
+          $carte.find(".bleeding.verso").attr("data-id", `${id}v`);
           $verso.attr("data-theme", THEMES[this.theme]['classe']);
-          $verso.attr("data-id", `${id}r`);
+          $verso.attr("data-id", `${id}v`);
           $verso.find(".carteID").html(id);
           $verso.find(".cycle").html(this.cycle);
-          $verso.find(".theme").html(this.theme);
+          $verso.find(".theme").html(`<span>${this.theme}</span>`);
           $verso.find(".logo").attr("data-theme", THEMES[this.theme]['classe']);
           html = "";
           switch ($recto.find(".attendu-title").attr("data-domaine")) {
@@ -350,17 +352,10 @@
             $(".deck").append(s);
           }
         }
-        $(".deck").sortable();
-        //$( ".verso" ).hide()
-        return $(".carte").on("click", function() {
-          return $(this).find(".recto, .verso").toggle();
-        });
+        return $(".deck").sortable();
       });
     };
-    $("#toggle").on("click", function() {
-      ID = 1;
-      return $(".recto, .verso").toggle();
-    });
+    //$( ".verso" ).hide()
     $("#cycle3").on("click", function() {
       ID = 1;
       return batkart("cycle3.json", "Cycle 3");
@@ -384,7 +379,7 @@
     return $("#toPNG").on("click", function() {
       var deferreds;
       deferreds = [];
-      $(".face").each(function() {
+      $(".bleeding").each(function() {
         var deferred, id;
         id = $(this).attr("data-id");
         console.log(`Envoi de la carte ${id}`);

@@ -194,6 +194,7 @@ class CardSet
         id = ID++
         numero_notion++
         domainClass = THEMES[@theme]['attendus'][attendu]['domaine']
+        $carte.find( ".bleeding.recto" ).attr "data-id", "#{id}r"
         $recto.attr "data-id", "#{id}r"
         $recto.attr "data-theme", THEMES[@theme]['classe']
         $recto.find(".carteID").html id
@@ -222,12 +223,12 @@ class CardSet
             html += "<img class='no-icon chkbox-unchecked'>#{n}"
         $recto.find(".notions-targets").html html
         
-        
+        $carte.find( ".bleeding.verso" ).attr "data-id", "#{id}v"
         $verso.attr "data-theme", THEMES[@theme]['classe']
-        $verso.attr "data-id", "#{id}r"
+        $verso.attr "data-id", "#{id}v"
         $verso.find(".carteID").html id
         $verso.find(".cycle").html @cycle
-        $verso.find(".theme").html @theme
+        $verso.find(".theme").html "<span>#{@theme}</span>"
         $verso.find(".logo").attr "data-theme", THEMES[@theme]['classe']
 
         html = ""
@@ -303,14 +304,12 @@ $ ->
       
       $(".deck").sortable()
       #$( ".verso" ).hide()
-      $( ".carte"  ).on "click", -> $( this ).find(".recto, .verso").toggle()
+
   
-  $( "#toggle" ).on "click", ->
-    ID = 1
-    $( ".recto, .verso" ).toggle()
   $( "#cycle3" ).on "click", -> 
     ID = 1
     batkart "cycle3.json", "Cycle 3"
+  
   $( "#cycle4" ).on "click", -> 
     ID = 1
     batkart "cycle4.json", "Cycle 4"
@@ -324,9 +323,12 @@ $ ->
       console.log "Carte #{id} traité !"
   
   zip = new JSZip()
+
+  
+  
   $( "#toPNG" ).on "click", -> 
     deferreds = [];
-    $(".face").each ->
+    $(".bleeding").each ->
       id = $(this).attr("data-id")
       console.log "Envoi de la carte #{id}"
       deferred = $.Deferred()

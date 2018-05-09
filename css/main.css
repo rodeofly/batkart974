@@ -1,7 +1,7 @@
 /*! HTML5 Boilerplate v5.0 | MIT License | http://h5bp.com/ */
 
 html {
-    color: #222;
+    color: #000;
     font-size: 1em;
     line-height: 1.4;
 }
@@ -62,6 +62,11 @@ textarea {
 #carteObject {
   display : none;
 }
+.deck {
+  position : relative;
+  display : block;
+
+}
 
 .carte {
   position : relative;
@@ -72,21 +77,50 @@ textarea {
   /* height : 14.7cm; */
 }
 
+.bleeding {
+  width: 1572px;
+  height: 2172px;
+  background-image : url(wallpapers/Giant-5x7-size.png);
+}
+
+.cut {
+  width: 100%;
+  height: 100%;
+  background-color: rgb(0, 0, 0);
+  position: relative;
+  top: 0;
+  left: 0;
+  border-radius: 100px;
+}
+
+
+.safe {
+  width: 1428px;
+  height: 2028px;
+  background-color: rgba(255,255,255,.75);
+  /* border:  solid black 2px; */
+  position:  absolute;
+  top: 72px;
+  left: 72px;
+  border-radius: 100px;
+}
 .cycle {
+  font-family : 'Lobster', 'Cursive';
+  font-size : 100px;
   position : absolute;
-  top: 2cm;
-  font-weight: bold;
-  /* right : 0.5cm; */
+  top: 0px;
+  right: 50px;
+
 }
 
 .face {
-  width  : 8.9cm;
-  height : 14.6cm;
-  border : solid black 0.25cm;
-  border-radius : 0.5cm;
+  width: 100%;
+  height: 100%;
+  /* border: solid black 25px; */
+  border-radius: 100px;
   display : inline-block;
-  margin : 0cm;
-  padding: 0.2cm;
+  margin: 0;
+  padding: 0cm;
   vertical-align: middle;
 }
 [data-theme='NC']{
@@ -116,70 +150,62 @@ textarea {
 }
 
 .header {
-  font-family: 'Permanent Marker', cursive;
-  font-weight: bolder;
-  font-size: 1.5em;
-  /* background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1)); */
-  padding: 0.1cm;
-  margin-bottom : 0.25cm;
-  border-radius:  0.25cm;
-}
-
-.competences {
-  float: right;
-  width: 7cm;
+  padding: 0;
+  margin : 0;
 }
 
 
-.logo {height: 1.5cm;width : 1.5cm;display: inline-block;margin: 0;padding : 0;vertical-align: initial;border-radius: unset;}
+.logo {
+  position : absolute;
+  top   : 120px;
+  left  : 10px;
+  height: 300px;
+  width : 300px;
+  padding : 0;
+  border-radius: 25px;
+  border: solid black 10px;
+}
 
 .logo[data-theme='NC'] {
   background: url("./icones/nombres&calculs.svg") no-repeat;
-  background-size: 1.5cm;
-  background-color : white;
-  width:  1.5cm;
-  height: 1.5cm;
+  background-size: cover;
 }
 
 .logo[data-theme='OGD']  {
   background: url("./icones/ogd&fonctions.svg") no-repeat;
-  background-size: 1.5cm;
-  background-color : white;
+  background-size: cover;
 }
 
 .logo[data-theme='EG'] {
   background: url("./icones/espace&géométrie.svg") no-repeat;
-  background-size: 1.5cm;
-  background-color : white;
+  background-size: cover;
 }
 
 .logo[data-theme='AP'] {
   background: url("./icones/algoritmique.svg") no-repeat;
-  background-size: 1.5cm;
-  background-color : white;
+  background-size: cover;
 }
 
 .logo[data-theme='GM'] {
   background: url("icones/grandeurs&mesures.svg") no-repeat;
-  background-size : 1.5cm;
-  background-color : white;
+  background-size: cover;
 }
 
 
 
 .tg-icon {
   margin : 0;
-  padding : 0;
-  width : 1.5cm;
-  height:1.5cm;
+  padding : 1px;
+  width : 250px;
+  height:250px;
   display : inline-block;
 }
 
 .no-icon {
   margin : 0;
   padding : 0;
-  width : 0.75cm;
-  height:0.75cm;
+  width : 100px;
+  height: 100px;
   display : inline-block;
 }
 
@@ -201,129 +227,155 @@ textarea {
 }
 
 .carteID {
-  font-family: 'Ubuntu', sans-serif;
-  font-size : 1.5em;
-  width : 1.5em;
-  height: 1.5em;
-  line-height : 1.5em;
+  font-family: 'Cambria', sans-serif;
+  color : black;
+  font-size : 150px;
+  width : 200px;
+  height: 200px;
+  line-height : 200px;
   text-align: center;
   /* float: right; */
   font-weight : bolder;
-  border : solid black 2px;
+  border : solid black 10px;
   border-radius : 100%;
   position:  absolute;
-  bottom : 0.35cm;
-  /* right:  1cm; */
+  bottom : 50px;
+  right:  10px;;
   background-color: rgba(255,255,255,0.5);
 }
 
 
+.content {
+  position : absolute;
+  top: 600px;
+  left : 3%;
+  margin : 0
+  padding: 0;
+  width:  90%;
+  border : solid black 10px;
+  border-radius : 100px;
+  background-color : rgba(255,255,255,0.8);
+  font-family: 'Ubuntu', sans-serif;
+  text-align : center;
+  font-weight: bolder;
+  font-size: 50px;
+}
+
 .verso .content {
   text-align :left;
-  border-radius:  20px;
+  border-radius:50px;
   width: 95%;
+  top : 500px;
+  left : 1%;
+  background-color : rgba(255,255,255,0.25);
+    border : none;
 }
 .attendus-content {
   font-family: 'Ubuntu', sans-serif;
-  padding: 0cm;
+  padding: 0;
   margin:0;
-  font-size: 0.25cm;
+  font-size: 25px;
   list-style-position: inside;
   list-style-type:none;
+
   /* background-color: rgba(255,255,255,0.75); */
 }
 
 .attendus > li {
-  padding:0cm;
-  margin:0cm;
+  padding:0;
+  margin:0;
 }
 
 .attendu {
   background : url("icones/checkbox_unchecked_target.png") no-repeat;
-  background-size : 1cm;
-  width : 6cm;
-  min-height:  1cm;
-  padding-left: 1cm;
-  font-size: 1.3em;
+  background-size : 100px;
+  background-position :10px 10px;
+  width: 89%;
+  min-height: 120px;
+  padding-left: 125px;
+  font-size: 50px;
 }
 
 .attenduV {
-  width : 6cm;
-  min-height:  1cm;
-  padding-left: 1cm;
-  font-size: 1.7em;
+  width : 100%;
+  min-height: 125px;
+  padding-left: 10px;
+  font-size: 60px;
   color:  blue;
 }
 
 .notions {
-  padding:0cm;
-  margin:0cm;
-  font-size: 1.5em;
-  border :;
+  padding:0;
+  margin:0;
+  font-size: 40px;
+  margin-left : -100px;
+  width : 100%;
 }
 
 .notions li {
    text-align : left;
-   padding-left : 0.05em;
+   padding-left : 10px;
    border:  1px;
 }
 
 .savoirfaires {
   padding:0cm;
   margin:0cm;
-  border:  solid black 1px;
-  border-radius: 5px;
+  border:solid black 10px;
+  border-radius: 50px;
   background-color: white;
 }
 
-.savoirfaires li {font-size: 1.2em;}
+.savoirfaires li {
+  font-size: 50px;
+}
 
-.citation, .theme  {
+.citation  {
   position : absolute;
-  bottom : 0.5cm;
-  left : 1.75cm;
-  margin-right : 0.25cm;
-  padding : 0.1cm 0.5cm 0.1cm 0.5cm;
+  bottom : 50px;
+  left : 10px ;
+  margin: 0;
+  padding : 0;
   font-family: 'Great Vibes', cursive;
-  font-weight: 400;
   text-align : center;
-  font-size: 1.2em;
-  background : #ffffff;
-  border : solid black 1px;
-  border-radius : 0.25cm;
-  width:  6.5cm;
-}
-
-.theme {
-  top : 0.5cm;
-  bottom : unset;
-  width:  6cm;
-  left: 2.25cm;
-  font-size: 0.4cm;
-  font-family: 'Ubuntu', sans-serif;
-}
-
-
-.content {
-  font-family: 'Ubuntu', sans-serif;
-  text-align : center;
-  font-weight: bolder;
-  font-size: 0.8em;
-  padding: 0.1cm;
-  border : solid black 3px;
+  font-size: 80px;
   background-color : rgba(255,255,255,0.5);
-  border-radius : 0.25cm;
-  /* width:  100%; */
+  border : solid black 10px;
+  border-radius : 100px;
+  width:  80%;
+}
+
+.theme, .competences {
+  position: absolute;
+  top: 110px;
+  width: 1150px;
+  min-height:300px;
+  left: 14px;
+  padding-top : 50px;
+  padding-left : 250px;
+  background : linear-gradient(to right, rgba(255,255,255,0),rgba(255,255,255,1),rgba(255,255,255,1),rgba(255,255,255,0));
+  text-align : center;
+  font-size: 100px;
+  font-family: 'Ubuntu', sans-serif;
+}
+
+.attendu.content {
+  position : relative;
+  width : 85%;
+  top : 0;
+  left : 1%;
+  margin-top : 10px;
 }
 
 .attendu-title  {
-  min-height: 3cm;
-  color: rgba(0, 0, 255, 1);
+  min-height: 300px;
+  color: blue;
   font-family: 'Ubuntu', sans-serif;
-  font-size: 1.5em;
+  font-size: 80px;
   text-align : center;
-  padding-left: 2cm;
-  background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
+  line-height : 100px;
+  padding-left: 300px;
+  padding-right : 25px;
 }
 
 .attendu > img {
@@ -333,25 +385,25 @@ textarea {
 
 .attendu-title[data-domaine='D1'] {
   background: transparent url("./icones/domaine1.svg") no-repeat left top;
-  background-size : 2cm;
+  background-size : 300px;
 }
 
 .attendu-title[data-domaine='D2']  {
   background: url("./icones/domaine2.svg") no-repeat left top;
-  background-size : 2cm;
+  background-size : 300px;
 }
 .attendu-title[data-domaine='D3']  {
   background: url("./icones/domaine3.svg") no-repeat left top;
-  background-size : 2cm;
+  background-size : 300px;
 }
 .attendu-title[data-domaine='D4']  {
   background: url("./icones/domaine4.svg") no-repeat left top;
-  background-size : 2cm;
+  background-size : 300px;
 }
 
 .attendu-title[data-domaine='D5'] {
   background: url("./icones/domaine5.svg") no-repeat left top;
-  background-size : 2cm;
+  background-size : 300px;
 }
 
 
@@ -370,41 +422,43 @@ span.intitule_attendu {
 
 .recto .notion  {
   text-align : center;
-  font-size: 2em;
+  font-size: 108px;
+  padding-top : 50px;
+  line-height : 128px;
 }
 
 .competence {
   display : inline-block;
-  width: 1.49cm;
-  height: 1.49cm;
+  width: 300px;
+  height: 300px;
   padding : 0;
   margin : 0;
   border : 0;
 }
 
 .competence.chercher {
-  background: url("./icones/chercher.svg") no-repeat center center;
-  background-size : 1.49cm;
+  background-image: url("icones/chercher.svg") ;
+  background-size : cover;
 }
 .competence.raisonner {
-  background: url("./icones/raisonner.svg") no-repeat center center;
-  background-size : 1.49cm;
+  background-image: url("icones/raisonner.svg");
+  background-size : cover;
 }
 .competence.representer {
-  background: url("./icones/représenter.svg") no-repeat center center;
-  background-size: 1.49cm;
+  background-image: url("icones/représenter.svg");
+  background-size : cover;
 }
 .competence.calculer {
-  background: url("./icones/calculer.svg") no-repeat center center;
-  background-size : 1.49cm;
+  background-image: url("icones/calculer.svg");
+  background-size : cover;
 }
 .competence.modeliser {
-  background: url("./icones/modéliser.svg") no-repeat center center;
-  background-size : 1.49cm;
+  background-image: url("icones/modéliser.svg");
+  background-size : cover;
 }
 .competence.communiquer {
-  background: url("./icones/communiquer.svg") no-repeat center center;
-  background-size : 1.49cm;
+  background-image: url("icones/communiquer.svg");
+  background-size : cover;
 }
 
 
