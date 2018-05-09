@@ -200,14 +200,14 @@ img.img_chkbox {
 
 #attendus {
   font-family: 'Ubuntu', sans-serif;
-  padding: 0.5cm;
+  padding: 0.25cm;
   margin:0;
-  font-size : 0.6em;
+  font-size: 0.25cm;
   list-style-position: inside;
   list-style-type:none;
   background-color: rgba(255,255,255,0.75);
-  border:  solid black 2px;
-  border-radius: 25px;
+  border: solid black 0.05cm;
+  border-radius: 0.25cm;
 }
 
 #attendus > li {
@@ -218,14 +218,14 @@ img.img_chkbox {
 #notions {
   padding:0.1cm;
   margin:0cm;
-
-  border : solid black 1px;
-  border-radius : 0.1cm;
+  /* border : solid black 1px; */
+  /* border-radius : 0.1cm; */
 }
 
 #notions li {
    text-align : left;
    padding-left : 0.05em;
+   border:  1px;
 }
  
 #savoirfaires {
@@ -233,6 +233,7 @@ img.img_chkbox {
   margin:0cm;
   list-style-position: inside;
   font-size: 1.3em;
+  border:  solid black 1px;
 }
 
 .citation  {
@@ -256,8 +257,8 @@ img.img_chkbox {
   font-family: 'Ubuntu', sans-serif;
   text-align : center;
   font-weight: bolder;
-  font-size : 1em;
-  padding : 0.25cm;
+  font-size: 1em;
+  padding: 0.1cm;
   border : solid black 3px;
 }
 
