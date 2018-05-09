@@ -210,19 +210,22 @@
     }
   });
 
-  
-  //console.log JSON.stringify THEMES
+  console.log(JSON.stringify(THEMES));
+
   ID = 1;
 
   CardSet = class CardSet {
-    constructor(theme1) {
-      var a, attendu, attenduV, carte, html, i, id, j, n, niveau, nombre_attendus, nombre_notions, notion, notionV, notionsV, numero_attendu, numero_notion, recto, ref, ref1, ref2, ref3, ref4, savoirfaire, savoirfaires, savoirfairesV, verso;
+    constructor(theme1, cycle1) {
+      var $carte, $recto, $verso, a, attendu, attenduV, carte, domainClass, html, i, id, j, n, niveau, nombre_attendus, nombre_notions, notion, notionV, notionsV, numero_attendu, numero_notion, ref, ref1, ref2, ref3, ref4, savoirfaire, savoirfaires, savoirfairesV;
       this.theme = theme1;
+      this.cycle = cycle1;
       this.attendus = THEMES[this.theme]['attendus'];
       this.set = [];
       numero_attendu = 0;
       nombre_attendus = Object.keys(this.attendus).length;
-//console.log "theme:#{@theme} - na:#{nombre_attendus}"
+      $carte = $($("#carteObject").html());
+      $recto = $carte.find(".recto");
+      $verso = $carte.find(".verso");
       for (attendu in this.attendus) {
         numero_attendu++;
         numero_notion = 0;
@@ -232,84 +235,97 @@
           savoirfaires = ref[notion];
           id = ID++;
           numero_notion++;
-          html = `<div class='face recto ${THEMES[this.theme]['classe']}' data-id="${id}r"> \n  <div class='header ${THEMES[this.theme]['classe']}'>\n      <div class='header logo ${THEMES[this.theme]['classe']}'></div>\n      <div id='t${id}' class='header title ${THEMES[this.theme]['classe']}'>${this.theme}</div>\n  </div>\n  <div id='s${id}'  class='content ${THEMES[this.theme]['classe']}'>\n  <div class='attendu ${THEMES[this.theme]['attendus'][attendu]['domaine']}'>\n    ${attendu}\n  </div>\n  <div class='carteID'>${id}</div> \n  <div class='citation'>${THEMES[this.theme]['citation']}</div>\n</div>`;
-          recto = $(html);
+          domainClass = THEMES[this.theme]['attendus'][attendu]['domaine'];
+          $recto.attr("data-id", `${id}r`);
+          $recto.attr("data-theme", THEMES[this.theme]['classe']);
+          $recto.find(".carteID").html(id);
+          $recto.find(".cycle").html(this.cycle);
+          $recto.find(".theme").html(this.theme);
+          $recto.find(".logo").attr("data-theme", THEMES[this.theme]['classe']);
+          $recto.find(".attendu-title").html(attendu);
+          $recto.find(".attendu-title").attr("data-domaine", domainClass);
+          $recto.find(".citation").html(THEMES[this.theme]['citation']);
+          $recto.find(".notion").html(notion);
           html = "";
           for (n = i = 1, ref1 = nombre_attendus; (1 <= ref1 ? i <= ref1 : i >= ref1); n = 1 <= ref1 ? ++i : --i) {
             if (n === numero_attendu) {
-              html += `<img src='./css/icones/checkbox_checked_target.png'>${n}`;
+              html += `<div class='tg-icon chkbox-checked'></div>${n}`;
             } else {
-              html += `<img src='./css/icones/checkbox_unchecked_target.png'>${n}`;
+              html += `<div class='tg-icon chkbox-unchecked'></div>${n}`;
             }
           }
-          html += `<div class='notion'>${notion}</div>`;
+          $recto.find(".attendus-targets").html(html);
+          html = "";
           for (n = j = 1, ref2 = nombre_notions; (1 <= ref2 ? j <= ref2 : j >= ref2); n = 1 <= ref2 ? ++j : --j) {
             if (n === numero_notion) {
-              html += `<img class='img_chkbox' src='./css/icones/checkbox_checked.png'>${n}`;
+              html += `<img class='no-icon chkbox-checked'>${n}`;
             } else {
-              html += `<img class='img_chkbox' src='./css/icones/checkbox_unchecked.png'>${n}`;
+              html += `<img class='no-icon chkbox-unchecked'>${n}`;
             }
           }
-          recto.find(`#s${id}`).append(html);
-          verso = $(`<div class='face verso ${THEMES[this.theme]['classe']}' data-id='${id}v'></div>`);
-          html = `<div class='header ${THEMES[this.theme]['classe']}'>`;
-          html = `<div class='header ${THEMES[this.theme]['classe']}'>\n<div class='header logo ${THEMES[this.theme]['classe']}'></div>\n<div id='t${id}' class='header competences ${THEMES[this.theme]['classe']}'>`;
-          if (recto.find(`#s${id} .attendu`).hasClass("D1")) {
-            html += "<div class='competence representer'></div>";
-            html += "<div class='competence modeliser'></div>";
-            html += "<div class='competence communiquer'></div>";
+          $recto.find(".notions-targets").html(html);
+          $verso.attr("data-theme", THEMES[this.theme]['classe']);
+          $verso.attr("data-id", `${id}r`);
+          $verso.find(".carteID").html(id);
+          $verso.find(".cycle").html(this.cycle);
+          $verso.find(".theme").html(this.theme);
+          $verso.find(".logo").attr("data-theme", THEMES[this.theme]['classe']);
+          html = "";
+          switch ($recto.find(".attendu-title").attr("data-domaine")) {
+            case "D1":
+              html += "<div class='competence representer'></div>";
+              html += "<div class='competence modeliser'></div>";
+              html += "<div class='competence communiquer'></div>";
+              break;
+            case "D2":
+              html += "<div class='competence chercher'></div>";
+              html += "<div class='competence modeliser'></div>";
+              html += "<div class='competence raisonner'></div>";
+              break;
+            case "D3":
+              html += "<div class='competence raisonner'></div>";
+              html += "<div class='competence communiquer'></div>";
+              break;
+            case "D4":
+              html += "<div class='competence chercher'></div>";
+              html += "<div class='competence modeliser'></div>";
+              html += "<div class='competence raisonner'></div>";
+              html += "<div class='competence calculer'></div>";
+              break;
+            case "D5":
+              html += "<div class='competence representer'></div>";
           }
-          if (recto.find(`#s${id} .attendu`).hasClass("D2")) {
-            html += "<div class='competence chercher'></div>";
-            html += "<div class='competence modeliser'></div>";
-            html += "<div class='competence raisonner'></div>";
-          }
-          if (recto.find(`#s${id} .attendu`).hasClass("D3")) {
-            html += "<div class='competence raisonner'></div>";
-            html += "<div class='competence communiquer'></div>";
-          }
-          if (recto.find(`#s${id} .attendu`).hasClass("D4")) {
-            html += "<div class='competence chercher'></div>";
-            html += "<div class='competence modeliser'></div>";
-            html += "<div class='competence raisonner'></div>";
-            html += "<div class='competence calculer'></div>";
-          }
-          if (recto.find(`#s${id} .attendu`).hasClass("D5")) {
-            html += "<div class='competence representer'></div>";
-          }
-          html += "</div></div>";
-          verso.append(html);
-          verso.append("<ul id='attendus'></ul>");
+          $verso.find(".competences").empty().html(html);
           a = 0;
+          $verso.find(".attendus-content").empty();
           ref3 = THEMES[this.theme]['attendus'];
           for (attenduV in ref3) {
             notionsV = ref3[attenduV];
             a++;
             if (a === numero_attendu) {
               //console.log attenduV
-              verso.find("#attendus").append(`<li class='attendu content ${THEMES[this.theme]['classe']}'>\n  <img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>${attenduV}</div>\n  <ol id='notions'></ol>\n</li>`);
+              $verso.find(".attendus-content").append(`<li class='attendu content ${THEMES[this.theme]['classe']}'>\n  <div class="attenduV">${attenduV}</div>\n  <ol class='notions'></ol>\n</li>`);
               n = 0;
               ref4 = notionsV.notions;
               for (notionV in ref4) {
                 savoirfairesV = ref4[notionV];
                 n++;
                 if (n === numero_notion) {
-                  verso.find("#notions").append(`<li class='notion'>${notionV}\n  <ul id='savoirfaires'></ul>\n</li>`);
+                  $verso.find(".notions").append(`<li class='notion'>${notionV}\n  <ul class='savoirfaires'></ul>\n</li>`);
                   for (savoirfaire in savoirfairesV) {
                     niveau = savoirfairesV[savoirfaire];
-                    verso.find("#savoirfaires").append(`<li>${savoirfaire}: <img class='star' src='img/${niveau}star.png'></li>`);
+                    $verso.find(".savoirfaires").append(`<li>${savoirfaire}: \n  <img class='star' src='img/${niveau}star.png'>\n</li>`);
                   }
                 } else {
-                  verso.find("#notions").append(`<li class='notion'>${notionV}</li>`);
+                  $verso.find(".notions").append(`<li class='notion'>${notionV}</li>`);
                 }
               }
             } else {
-              verso.find("#attendus").append(`<li class='attendu'><img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>${attenduV}</div></li>`);
+              $verso.find(".attendus-content").append(`<li class='attendu'>${attenduV}\n</li>`);
             }
           }
           carte = $("<div></div>");
-          carte.append(`<div id='' class='carte'></div>`);
-          carte.find(".carte").append(recto).append(verso);
+          carte.append($carte);
           this.set.push(carte.html());
         }
       }
@@ -319,7 +335,7 @@
 
   $(function() {
     var batkart, generateCanvas, zip;
-    batkart = function(file) {
+    batkart = function(file, cycle) {
       return $.getJSON(file, function(data) {
         var i, j, len, len1, ref, s, set, theme, themes;
         THEMES = data;
@@ -327,7 +343,7 @@
         $(".deck").empty();
         for (i = 0, len = themes.length; i < len; i++) {
           theme = themes[i];
-          set = new CardSet(theme);
+          set = new CardSet(theme, cycle);
           ref = set.set;
           for (j = 0, len1 = ref.length; j < len1; j++) {
             s = ref[j];
@@ -347,11 +363,11 @@
     });
     $("#cycle3").on("click", function() {
       ID = 1;
-      return batkart("cycle3.json");
+      return batkart("cycle3.json", "Cycle 3");
     });
     $("#cycle4").on("click", function() {
       ID = 1;
-      return batkart("cycle4.json");
+      return batkart("cycle4.json", "Cycle 4");
     });
     generateCanvas = function(carte, id, zip, deferred) {
       return html2canvas(carte).then(function(canvas) {

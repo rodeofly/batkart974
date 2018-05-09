@@ -3,7 +3,7 @@
       "classe":"NC",
       "citation":"Chinoi la la pa bien rende a moin la monai",
       "attendus":{  
-         "Utiliser et représenter les nombres(N;D;Q)":{  
+         "Utiliser et représenter les nombres (N;D;Q)":{  
             "domaine":"D1",
             "notions":{  
                "Entiers":{  
@@ -61,7 +61,7 @@
                   "Comparer des périmètres avec ou sans recours à la mesure":1,
                   "Mesurer des périmètres en reportant des unités ou une formule":1},
                "Aires":{  
-                 "Comparer, classer des surfaces, suivant leurs aires(sans formule)":1,
+                 "Comparer, classer des surfaces, suivant leurs aires (sans formule)":1,
                  "Différencier aire et périmètre":2,
                  "Déterminer une aire par un pavage ou une formule":2,
                  "Estimer une aire par différentes procédures":2
@@ -87,7 +87,7 @@
                   "Résoudre des problèmes":{  
                      "Problème de comparaison avec ou sans mesure":2,
                      "Problème dont la résolution utilise unités et conversions":3,
-                     "problème avec formules; Pcarré,Prect,Pcercl,Acarré,Arect,Adisq,Atri,Vpavé,Vcube":3
+                     "Problème avec formules; Pcarré, Prect, Pcercl, Acarré, Arect, Adisq, Atri, Vpavé, Vcube":3
                   },
                   "Les durées":{  
                      "Calculer la durée entre 2 instants":2
@@ -131,7 +131,7 @@
                   "Tracés":{  
                      "Perpendicularité ou  parallélisme de droites et de segments.":2,
                      "Déterminer le plus court chemin entre deux points":2,
-                     "Déterminer le plus court chemin entre un point et une droite ou entre deux droites parallèles (enlien avec la perpendicularité)":3,
+                     "Déterminer le plus court chemin entre un point et une droite ou entre deux droites parallèles (en lien avec la perpendicularité)":3,
                      "Compléter une figure par symétrie axiale":2,
                      "Construire la figure symétrique d’une fgure donnée":2,
                      "Reproduire une figure à l'échelle":3

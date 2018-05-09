@@ -59,12 +59,24 @@ textarea {
     -webkit-print-color-adjust: exact; 
 }
 
+#carteObject {
+  display : none;
+}
 
 .carte {
   position : relative;
-  display  : inline-block;
+  display  : block;
   padding  : 0cm;
   margin   : 0cm;
+  /* width: 20cm; */
+  /* height : 14.7cm; */
+}
+
+.cycle {
+  position : absolute;
+  top: 2cm;
+  font-weight: bold;
+  /* right : 0.5cm; */
 }
 
 .face {
@@ -74,30 +86,30 @@ textarea {
   border-radius : 0.5cm;
   display : inline-block;
   margin : 0cm;
-  padding : 0.2cm;
+  padding: 0.2cm;
   vertical-align: middle;
 }
-.face.recto.NC,  .face.verso.NC{
+[data-theme='NC']{
   background-color: #FF6961;
   background-image: url("wallpapers/NC-Wallpaper.png");
   background-size: cover;
 }
-.face.recto.OGD, .face.verso.OGD{
+[data-theme='OGD']{
   background: #77DD77;
   background-image: url("wallpapers/OGD-Wallpaper.png");
   background-size: cover;
 }
-.face.recto.EG, .face.verso.EG{
+[data-theme='EG']{
   background: #AEC6CF;
   background-image: url("wallpapers/EG-Wallpaper.png");
   background-size: cover;
 }
-.face.recto.GM, .face.verso.GM{
+[data-theme='GM']{
   background: #836953;
   background-image: url("wallpapers/GM-Wallpaper.png");
   background-size: cover;
 }
-.face.recto.AP, .face.verso.AP{
+[data-theme='AP']{
   background: orange;
   background-image: url("wallpapers/AP-Wallpaper.png");
   background-size: cover;
@@ -105,138 +117,168 @@ textarea {
 
 .header {
   font-family: 'Permanent Marker', cursive;
-  text-align : center;
-  font-weight : bolder;
-  font-size: 1.3em;
-  background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
+  font-weight: bolder;
+  font-size: 1.5em;
+  /* background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1)); */
   padding: 0.1cm;
   margin-bottom : 0.25cm;
   border-radius:  0.25cm;
-  width: 97%;
 }
 
-.header.title {
-  background: transparent;
-  background-size : 1.25cm;
-  display:inline-block;
-  width: 7.25cm;
-  padding-left: 1.5cm;
-}
-.header.competences {
-  /* height : 1.25cm; */
-  width : 7cm;
-  background: transparent;
-  display: inline-block;
-  margin: 0;
-  padding-left: 1.5cm;
+.competences {
+  float: right;
+  width: 7cm;
 }
 
-.header.logo {
 
-  
-  height: 1.5cm;
-  width : 1.5cm;
-  display: inline-block;
-  margin: 0;
-  padding : 0;
-  vertical-align: initial;
-  position: absolute;
-  border-radius: unset;
-}
+.logo {height: 1.5cm;width : 1.5cm;display: inline-block;margin: 0;padding : 0;vertical-align: initial;border-radius: unset;}
 
-.header.logo.NC {
+.logo[data-theme='NC'] {
   background: url("./icones/nombres&calculs.svg") no-repeat;
   background-size: 1.5cm;
   background-color : white;
+  width:  1.5cm;
+  height: 1.5cm;
 }
 
-.header.logo.OGD {
+.logo[data-theme='OGD']  {
   background: url("./icones/ogd&fonctions.svg") no-repeat;
   background-size: 1.5cm;
   background-color : white;
 }
 
-.header.logo.EG {
+.logo[data-theme='EG'] {
   background: url("./icones/espace&géométrie.svg") no-repeat;
   background-size: 1.5cm;
   background-color : white;
 }
 
-.header.logo.AP {
+.logo[data-theme='AP'] {
   background: url("./icones/algoritmique.svg") no-repeat;
   background-size: 1.5cm;
   background-color : white;
 }
 
-.header.logo.GM {
-  background: url("./icones/grandeurs&mesures.svg") no-repeat;
+.logo[data-theme='GM'] {
+  background: url("icones/grandeurs&mesures.svg") no-repeat;
   background-size : 1.5cm;
   background-color : white;
 }
 
 
 
+.tg-icon {
+  margin : 0;
+  padding : 0;
+  width : 1.5cm;
+  height:1.5cm;
+  display : inline-block;
+}
 
-img.img_chkbox {
-  width : 0.5cm;
+.no-icon {
+  margin : 0;
+  padding : 0;
+  width : 0.75cm;
+  height:0.75cm;
+  display : inline-block;
+}
+
+.tg-icon.chkbox-checked {
+  background-image : url("icones/checkbox_checked_target.png");
+  background-size : cover;
+}
+.tg-icon.chkbox-unchecked {
+  background-image : url("icones/checkbox_unchecked_target.png");
+  background-size : cover;
+}
+.no-icon.chkbox-checked {
+  background-image : url("icones/checkbox_checked.png");
+  background-size : cover;
+}
+.no-icon.chkbox-unchecked {
+  background : url("icones/checkbox_unchecked.png");
+  background-size : cover;
 }
 
 .carteID {
-  position: absolute;
   font-family: 'Ubuntu', sans-serif;
   font-size : 1.5em;
   width : 1.5em;
   height: 1.5em;
   line-height : 1.5em;
   text-align: center;
-  position: absolute;
+  /* float: right; */
   font-weight : bolder;
   border : solid black 2px;
   border-radius : 100%;
+  position:  absolute;
   bottom : 0.35cm;
-  left : 0.35cm;
+  /* right:  1cm; */
   background-color: rgba(255,255,255,0.5);
 }
 
-#attendus {
+
+.verso .content {
+  text-align :left;
+  border-radius:  20px;
+  width: 95%;
+}
+.attendus-content {
   font-family: 'Ubuntu', sans-serif;
-  padding: 0.25cm;
+  padding: 0cm;
   margin:0;
   font-size: 0.25cm;
   list-style-position: inside;
   list-style-type:none;
-  background-color: rgba(255,255,255,0.75);
-  border: solid black 0.05cm;
-  border-radius: 0.25cm;
+  /* background-color: rgba(255,255,255,0.75); */
 }
 
-#attendus > li {
-  margin-top : 0.1cm;
-}
-
-
-#notions {
-  padding:0.1cm;
+.attendus > li {
+  padding:0cm;
   margin:0cm;
-  /* border : solid black 1px; */
-  /* border-radius : 0.1cm; */
 }
 
-#notions li {
+.attendu {
+  background : url("icones/checkbox_unchecked_target.png") no-repeat;
+  background-size : 1cm;
+  width : 6cm;
+  min-height:  1cm;
+  padding-left: 1cm;
+  font-size: 1.3em;
+}
+
+.attenduV {
+  width : 6cm;
+  min-height:  1cm;
+  padding-left: 1cm;
+  font-size: 1.7em;
+  color:  blue;
+}
+
+.notions {
+  padding:0cm;
+  margin:0cm;
+  font-size: 1.5em;
+  border :;
+}
+
+.notions li {
    text-align : left;
    padding-left : 0.05em;
    border:  1px;
 }
- 
-#savoirfaires {
-  padding:0.1cm;
+
+.savoirfaires {
+  padding:0cm;
   margin:0cm;
-  list-style-position: inside;
-  font-size: 1.3em;
   border:  solid black 1px;
+  border-radius: 5px;
+  background-color: white;
 }
 
-.citation  {
+.savoirfaires li {font-size: 1.2em;}
+
+.citation, .theme  {
   position : absolute;
   bottom : 0.5cm;
   left : 1.75cm;
@@ -252,28 +294,36 @@ img.img_chkbox {
   width:  6.5cm;
 }
 
+.theme {
+  top : 0.5cm;
+  bottom : unset;
+  width:  6cm;
+  left: 2.25cm;
+  font-size: 0.4cm;
+  font-family: 'Ubuntu', sans-serif;
+}
+
 
 .content {
   font-family: 'Ubuntu', sans-serif;
   text-align : center;
   font-weight: bolder;
-  font-size: 1em;
+  font-size: 0.8em;
   padding: 0.1cm;
   border : solid black 3px;
-}
-
-.content {
   background-color : rgba(255,255,255,0.5);
   border-radius : 0.25cm;
+  /* width:  100%; */
 }
 
-div.attendu  {
-  min-height : 2cm;
-  color : black;
+.attendu-title  {
+  min-height: 3cm;
+  color: rgba(0, 0, 255, 1);
   font-family: 'Ubuntu', sans-serif;
-  font-size: 1em;
+  font-size: 1.5em;
   text-align : center;
   padding-left: 2cm;
+  background: linear-gradient(to right, rgba(255,0,0,0), rgba(255,255,255,1));
 }
 
 .attendu > img {
@@ -281,25 +331,25 @@ div.attendu  {
   display : inline-block;
 }
 
-.attendu.D1 {
+.attendu-title[data-domaine='D1'] {
   background: transparent url("./icones/domaine1.svg") no-repeat left top;
   background-size : 2cm;
 }
 
-.attendu.D2 {
+.attendu-title[data-domaine='D2']  {
   background: url("./icones/domaine2.svg") no-repeat left top;
   background-size : 2cm;
 }
-.attendu.D3 {
+.attendu-title[data-domaine='D3']  {
   background: url("./icones/domaine3.svg") no-repeat left top;
   background-size : 2cm;
 }
-.attendu.D4 {
+.attendu-title[data-domaine='D4']  {
   background: url("./icones/domaine4.svg") no-repeat left top;
   background-size : 2cm;
 }
 
-.attendu.D5 {
+.attendu-title[data-domaine='D5'] {
   background: url("./icones/domaine5.svg") no-repeat left top;
   background-size : 2cm;
 }
@@ -322,29 +372,11 @@ span.intitule_attendu {
   text-align : center;
   font-size: 2em;
 }
-.attendu > .target
-{:font-size : 1.25embackground-image: url("./icones/target.svg") no-repeat left top;}
-
-
-.target {
-  text-align:  left;
-  display : inline-block;
-  min-height: 0.75cm;
-  padding: 0;
-  margin : 0;
-  margin-bottom : 0.25cm;
-  padding-left: 0cm;
-  border : 0;
-  line-height: 1em;
-  width: 6cm;
-  font-size: 1.5em;
-  vertical-align: middle;
-}
 
 .competence {
   display : inline-block;
-  width : 1.25cm;
-  height : 1.25cm;
+  width: 1.49cm;
+  height: 1.49cm;
   padding : 0;
   margin : 0;
   border : 0;
@@ -352,27 +384,27 @@ span.intitule_attendu {
 
 .competence.chercher {
   background: url("./icones/chercher.svg") no-repeat center center;
-  background-size : 1.25cm;
+  background-size : 1.49cm;
 }
 .competence.raisonner {
   background: url("./icones/raisonner.svg") no-repeat center center;
-  background-size : 1.25cm;
+  background-size : 1.49cm;
 }
 .competence.representer {
   background: url("./icones/représenter.svg") no-repeat center center;
-  background-size : 1.25cm;
+  background-size: 1.49cm;
 }
 .competence.calculer {
   background: url("./icones/calculer.svg") no-repeat center center;
-  background-size : 1.25cm;
+  background-size : 1.49cm;
 }
 .competence.modeliser {
   background: url("./icones/modéliser.svg") no-repeat center center;
-  background-size : 1.25cm;
+  background-size : 1.49cm;
 }
 .competence.communiquer {
   background: url("./icones/communiquer.svg") no-repeat center center;
-  background-size : 1.25cm;
+  background-size : 1.49cm;
 }
 
 

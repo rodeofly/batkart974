@@ -171,16 +171,20 @@ THEMES =
   
 
 
-#console.log JSON.stringify THEMES
+console.log JSON.stringify THEMES
 ID=1    
 class CardSet
-  constructor: (@theme) ->
+  constructor: (@theme, @cycle) ->
     @attendus = THEMES[@theme]['attendus']
     @set = []
     
     numero_attendu = 0
     nombre_attendus = Object.keys(@attendus).length
-    #console.log "theme:#{@theme} - na:#{nombre_attendus}"
+    $carte = $($("#carteObject").html())
+    $recto = $carte.find(".recto")
+    $verso = $carte.find(".verso")
+
+
     for attendu of @attendus
       numero_attendu++
       numero_notion = 0
@@ -189,103 +193,111 @@ class CardSet
       for notion, savoirfaires of THEMES[@theme]['attendus'][attendu]['notions']
         id = ID++
         numero_notion++
-        html = """
-        <div class='face recto #{THEMES[@theme]['classe']}' data-id="#{id}r"> 
-          <div class='header #{THEMES[@theme]['classe']}'>
-              <div class='header logo #{THEMES[@theme]['classe']}'></div>
-              <div id='t#{id}' class='header title #{THEMES[@theme]['classe']}'>#{@theme}</div>
-          </div>
-          <div id='s#{id}'  class='content #{THEMES[@theme]['classe']}'>
-          <div class='attendu #{THEMES[@theme]['attendus'][attendu]['domaine']}'>
-            #{attendu}
-          </div>
-          <div class='carteID'>#{id}</div> 
-          <div class='citation'>#{THEMES[@theme]['citation']}</div>
-        </div>""" 
-        recto = $(html)
+        domainClass = THEMES[@theme]['attendus'][attendu]['domaine']
+        $recto.attr "data-id", "#{id}r"
+        $recto.attr "data-theme", THEMES[@theme]['classe']
+        $recto.find(".carteID").html id
+        $recto.find(".cycle").html @cycle
+        $recto.find(".theme").html @theme
+        $recto.find(".logo").attr "data-theme", THEMES[@theme]['classe']
+        $recto.find(".attendu-title").html attendu
+        $recto.find(".attendu-title").attr "data-domaine", domainClass
+        $recto.find(".citation").html THEMES[@theme]['citation']
+        $recto.find(".notion").html notion
+
         
         html  = ""
         for n in [1..nombre_attendus]
           if n is numero_attendu
-            html += "<img src='./css/icones/checkbox_checked_target.png'>#{n}"
+            html += "<div class='tg-icon chkbox-checked'></div>#{n}"
           else
-            html+= "<img src='./css/icones/checkbox_unchecked_target.png'>#{n}"        
-        html += "<div class='notion'>#{notion}</div>"
+            html += "<div class='tg-icon chkbox-unchecked'></div>#{n}"
+        $recto.find(".attendus-targets").html html 
+        
+        html = ""
         for n in [1..nombre_notions]
           if n is numero_notion
-            html += "<img class='img_chkbox' src='./css/icones/checkbox_checked.png'>#{n}"
+            html += "<img class='no-icon chkbox-checked'>#{n}"
           else
-            html+= "<img class='img_chkbox' src='./css/icones/checkbox_unchecked.png'>#{n}"
-        recto.find("#s#{id}").append html
+            html += "<img class='no-icon chkbox-unchecked'>#{n}"
+        $recto.find(".notions-targets").html html
+        
+        
+        $verso.attr "data-theme", THEMES[@theme]['classe']
+        $verso.attr "data-id", "#{id}r"
+        $verso.find(".carteID").html id
+        $verso.find(".cycle").html @cycle
+        $verso.find(".theme").html @theme
+        $verso.find(".logo").attr "data-theme", THEMES[@theme]['classe']
 
-      
-        verso = $("<div class='face verso #{THEMES[@theme]['classe']}' data-id='#{id}v'></div>")
-        html = "<div class='header #{THEMES[@theme]['classe']}'>"
-        html = """<div class='header #{THEMES[@theme]['classe']}'>
-              <div class='header logo #{THEMES[@theme]['classe']}'></div>
-              <div id='t#{id}' class='header competences #{THEMES[@theme]['classe']}'>"""
-        if recto.find( "#s#{id} .attendu" ).hasClass("D1")
-          html += "<div class='competence representer'></div>"
-          html += "<div class='competence modeliser'></div>"
-          html += "<div class='competence communiquer'></div>"
-        if recto.find( "#s#{id} .attendu" ).hasClass("D2")
-          html += "<div class='competence chercher'></div>"
-          html += "<div class='competence modeliser'></div>"
-          html += "<div class='competence raisonner'></div>"
-        if recto.find( "#s#{id} .attendu" ).hasClass("D3")
-          html += "<div class='competence raisonner'></div>"
-          html += "<div class='competence communiquer'></div>" 
-        if recto.find( "#s#{id} .attendu" ).hasClass("D4")
-          html += "<div class='competence chercher'></div>" 
-          html += "<div class='competence modeliser'></div>"
-          html += "<div class='competence raisonner'></div>" 
-          html += "<div class='competence calculer'></div>" 
-        if recto.find( "#s#{id} .attendu" ).hasClass("D5")
-          html += "<div class='competence representer'></div>" 
-        html += "</div></div>"
-        verso.append html
-        verso.append "<ul id='attendus'></ul>"
+        html = ""
+        switch $recto.find( ".attendu-title" ).attr "data-domaine"
+          when "D1"
+            html += "<div class='competence representer'></div>"
+            html += "<div class='competence modeliser'></div>"
+            html += "<div class='competence communiquer'></div>"
+          when "D2"
+            html += "<div class='competence chercher'></div>"
+            html += "<div class='competence modeliser'></div>"
+            html += "<div class='competence raisonner'></div>"
+          when "D3"
+            html += "<div class='competence raisonner'></div>"
+            html += "<div class='competence communiquer'></div>" 
+          when "D4"
+            html += "<div class='competence chercher'></div>" 
+            html += "<div class='competence modeliser'></div>"
+            html += "<div class='competence raisonner'></div>" 
+            html += "<div class='competence calculer'></div>" 
+          when "D5"
+            html += "<div class='competence representer'></div>" 
+
+        $verso.find(".competences").empty().html html
         
         a=0
+        $verso.find( ".attendus-content" ).empty()
         for attenduV, notionsV of THEMES[@theme]['attendus']
           a++
           if a is numero_attendu
             #console.log attenduV
-            verso.find( "#attendus" ).append """
+            $verso.find( ".attendus-content" ).append """
             <li class='attendu content #{THEMES[@theme]['classe']}'>
-              <img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>#{attenduV}</div>
-              <ol id='notions'></ol>
+              <div class="attenduV">#{attenduV}</div>
+              <ol class='notions'></ol>
             </li>
             """
             n = 0
             for notionV, savoirfairesV of notionsV.notions
               n++      
               if (n is numero_notion)
-                verso.find("#notions").append """
+                $verso.find(".notions").append """
                 <li class='notion'>#{notionV}
-                  <ul id='savoirfaires'></ul>
+                  <ul class='savoirfaires'></ul>
                 </li>"""
                 for savoirfaire, niveau of savoirfairesV
-                  verso.find("#savoirfaires").append "<li>#{savoirfaire}: <img class='star' src='img/#{niveau}star.png'></li>"
-              else verso.find("#notions").append( "<li class='notion'>#{notionV}</li>" )
-          else verso.find( "#attendus" ).append "<li class='attendu'><img src='./css/icones/checkbox_unchecked_target.png'><div class='target'>#{attenduV}</div></li>"
+                  $verso.find(".savoirfaires").append """
+                    <li>#{savoirfaire}: 
+                      <img class='star' src='img/#{niveau}star.png'>
+                    </li>"""
+              else $verso.find(".notions").append( "<li class='notion'>#{notionV}</li>" )
+          else $verso.find( ".attendus-content" ).append """
+            <li class='attendu'>#{attenduV}
+            </li>"""
+
+        
         
         carte = $("<div></div>")
-        carte.append "<div id='#{}' class='carte'></div>"
-        carte.find(".carte")
-          .append(recto)
-          .append(verso)
+        carte.append $carte
         @set.push carte.html()
 
 
 $ ->
-  batkart = (file) ->
+  batkart = (file, cycle) ->
     $.getJSON file, ( data ) -> 
       THEMES = data
       themes = Object.keys(THEMES)
       $( ".deck" ).empty()
       for theme in themes
-        set = new CardSet theme
+        set = new CardSet theme, cycle
         for s in set.set
           $( ".deck" ).append s
       
@@ -298,10 +310,10 @@ $ ->
     $( ".recto, .verso" ).toggle()
   $( "#cycle3" ).on "click", -> 
     ID = 1
-    batkart "cycle3.json"
+    batkart "cycle3.json", "Cycle 3"
   $( "#cycle4" ).on "click", -> 
     ID = 1
-    batkart "cycle4.json"
+    batkart "cycle4.json", "Cycle 4"
   
   
   generateCanvas = (carte, id, zip, deferred) ->
