@@ -4,7 +4,7 @@
     "citation":"Chinoi la la pa bien rende a moin la monai",
     "attendus":{
       "Utiliser les nombres pour comparer, calculer et résoudre des problèmes":{
-        "domaine":"D1",
+        "domaine":"D4",
         "notions":{
           "Enchaînements d'opérations":{
             "Calculer avec des nombres décimaux sans parenthèses":1,
@@ -204,7 +204,7 @@
     "citation":"Meziré y kass pa le bra",
     "attendus":{
       "Calculer avec des grandeurs mesurables ; Exprimer les résultats dans les unités adaptées":{
-        "domaine":"D1",
+        "domaine":"D5",
         "notions":{
           "Périmètre":{
             "Convertir des unités de longueurs":1,
@@ -253,7 +253,7 @@
     "citation":"Y fé pa la bou avan la pli",
     "attendus":{
       "Écrire, mettre au point et exécuter un programme simple":{
-        "domaine":"D1",
+        "domaine":"D2",
         "notions":{
           "Écriture d'un programme":{
             "Écrire, mettre au point (tester, corriger) et exécuter un programme en réponse à un programme donné":1

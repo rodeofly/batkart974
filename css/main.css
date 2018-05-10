@@ -201,6 +201,13 @@ textarea {
   display : inline-block;
 }
 
+.notions-targets
+{
+  margin-bottom : 10px;
+
+}
+
+
 .no-icon {
   margin : 0;
   padding : 0;
@@ -208,6 +215,7 @@ textarea {
   height: 100px;
   display : inline-block;
 }
+
 
 .tg-icon.chkbox-checked {
   background-image : url("icones/checkbox_checked_target.png");
@@ -429,8 +437,8 @@ span.intitule_attendu {
 
 .competence {
   display : inline-block;
-  width: 300px;
-  height: 300px;
+  width: 250px;
+  height: 250px;
   padding : 0;
   margin : 0;
   border : 0;
@@ -466,7 +474,7 @@ span.intitule_attendu {
 
 
 .star {
-  height: 0.25cm;
+  height: 50px;
 }
 
 /* ==========================================================================
